@@ -4,16 +4,18 @@
 import os
 
 #A function that renames all files in a specified folder
-def renameFiles(currentDirectoryName, newDirectory, newFileConstant, startingIncrement, fileExtension):
+def renameFiles(currentDirectoryName, newFileConstant, startingIncrement, fileExtension):
 	
 	# Now rename each file in the current directory in the following manner
 	# newFileConstant-increment
 	for fileName in os.listdir(currentDirectoryName):
 		
-		newDirectory = newDirectory + "/" + newFileConstant + "-" + str(startingIncrement) + fileExtension
+		dst = newFileConstant + "-" + str(startingIncrement) + fileExtension
+		src = currentDirectoryName + "/" + fileName
+		dst = currentDirectoryName + "/" + dst
 		
-		#rename the new directory.
-		os.rename(currentDirectoryName, newDirectory)
+		#rename the new file.
+		os.rename(src, dst)
 		
 		#increment
 		startingIncrement += 1
@@ -24,14 +26,13 @@ def renameFiles(currentDirectoryName, newDirectory, newFileConstant, startingInc
 if __name__ == '__main__':
 	
 	currentDir = input("Enter current directory: ")
-	newDir = input("Enter new directory: ")
 	fileConstant = input("Enter the file constant: " )
 	startingIncrement = input("Enter the starting increment number: ")
 	fileExtension = input("Enter the extension type: ")
 	
 	#Processing
 	print("Processing .... ")
-	renameFiles(currentDir, newDir, fileConstant, startingIncrement, fileExtension)
+	renameFiles(currentDir, fileConstant, startingIncrement, fileExtension)
 	
 	#Done
 	print("Done...")
